@@ -1,9 +1,11 @@
+const express = require('express')
+
 const toursRouter = require('./routes/tourRoutes')
 const usersRouter = require('./routes/userRoutes')
 
-const express = require('express')
-
 const app = express()
+
+app.use(express.static(`${__dirname}/public`))
 
 app.use(express.json())
 
