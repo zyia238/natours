@@ -1,0 +1,22 @@
+{
+  "name": "natours",
+  "version": "1.0.0",
+  "description": "leanring node express mongodb",
+  "main": "index.js",
+  "scripts": {
+    "start":"nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyia238/natours.git"
+  },
+  "author": "me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zyia238/natours/issues"
+  },
+  "homepage": "https://github.com/zyia238/natours#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
