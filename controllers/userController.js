@@ -1,10 +1,11 @@
 const fs = require('fs')
 const { join } = require('path')
-const users = JSON.parse(fs.readFileSync(join(__dirname,'..', 'dev-data','data','users.json'),'utf-8'))
+const User = require('../models/userModel')
 
-exports.getAllUsers = (req,res)=>{
-    res.json({
-        status:200,
+exports.getAllUsers = async (req,res)=>{
+    const users = await User.find()
+    res.status(200).json({
+        status:"success",
         data:{
             users
         }

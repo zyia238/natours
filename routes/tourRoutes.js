@@ -1,7 +1,7 @@
 const express = require('express')
 
 const {getAllTours, createNewTour , getOneTour , updateTour , aliasMiddleware , getToursStats , getBusiestMonth} = require('../controllers/tourController')
-
+const { protect } = require('../controllers/authController')
 const toursRouter = express.Router();
 
 toursRouter.route('/').get(getAllTours).post(createNewTour)
