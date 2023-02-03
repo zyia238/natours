@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema({
       type:String,
       // minLength:8
     },
+    role:{
+      type:String,
+      enum:['admin','user','lead-guide','guide'],
+      default:'user'
+    },
     photo:String,
     passwordConfirm:{
       type:String,
@@ -28,7 +33,9 @@ const userSchema = new mongoose.Schema({
     passwordChangedAt:{
       type:Date,
       default:new Date().getTime()
-    }
+    },
+    passwordResetToken:String,
+    passwordResetTokenExpiresIn:Date
   })
 
 const User = mongoose.model('User',userSchema)
