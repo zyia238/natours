@@ -144,6 +144,8 @@ exports.resetPassword = async (req,res,next)=>{
   user.password = await bcrypt.hash(req.body.password, 12)
   user.passwordConfirm = undefined
 
+  await user.save()
+
   const token = JWT.sign({id:user._id},process.env.JWT_SECRET,{
     expiresIn:'90d'
   })
@@ -152,4 +154,39 @@ exports.resetPassword = async (req,res,next)=>{
     status:"success",
     token
   })
+}
+
+exports.updatePassword = async (req,res,next) => {
+  // updatePassword for only logged-in user
+  const userInfo = req.user
+  
+  const { passwordCurrent , newPassword , passwordConfirm } = req.body
+
+  const user = await User.findById(userInfo._id)
+
+  if(!user){
+    return next(new Error('invalid input'))
+  }
+
+  if(newPassword !== passwordConfirm){
+    return next(new Error('password not equal'))
+  }
+
+  const isValid = await bcrypt.compare(passwordCurrent + "" , userInfo.password)
+
+  if(!isValid){
+    return next(new Error('password not true'))
+  }
+
+  user.password = await bcrypt.hash(newPassword + "", 12)
+  await user.save()
+
+  const token = JWT.sign({id:user._id},process.env.JWT_SECRET,{
+    expiresIn:'90d'
+  })
+
+  res.status(200).json({
+    status: 'success',
+    token,
+  });
 }
